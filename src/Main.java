@@ -1,47 +1,28 @@
 import lejos.hardware.BrickFinder;
-import lejos.hardware.Button;
-import lejos.hardware.Keys;
-import lejos.hardware.ev3.EV3;
-import lejos.hardware.lcd.LCD;
-import lejos.hardware.lcd.TextLCD;
+import lejos.remote.ev3.RMIRegulatedMotor;
+import lejos.remote.ev3.RemoteEV3;
+
+import java.rmi.RemoteException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException {
 
 
-        LCD.clear();
-        LCD.drawString("First EV3 Program", 0, 5);
-        Button.waitForAnyPress();
-        LCD.clear();
-        LCD.refresh();
-    /*        LCD.drawString("Enter to Exit", 0, 2);
-        Button.ENTER.waitForPressAndRelease();*/
+        // Detecting EV3 Brick
+        RemoteEV3 ev3 = (RemoteEV3) BrickFinder.getDefault();
 
-        // get EV3 brick
+        // Creating objects for motor and IR sensor
+        RMIRegulatedMotor leftMotor = ev3.createRegulatedMotor("B", 'L');
+        RMIRegulatedMotor rightMotor = ev3.createRegulatedMotor("C", 'L');
 
-//		EV3 ev3brick = (EV3) BrickFinder.getLocal();
+        leftMotor.setSpeed(-50);
+        leftMotor.forward();
+        rightMotor.setSpeed(-50);
+        rightMotor.forward();
 
-        //	Mock evMock = new MockBrick();
-
-        EV3 ev3brick;
-        if (BrickFinder.getLocal() != null) {
-            ev3brick = (EV3) BrickFinder.getLocal();
-        }else {
-            ev3brick = new MockBrick();
-        }
-
-
-
-
-        // instantized LCD class for displaying and Keys // class for buttons
-        Keys buttons = ev3brick.getKeys();
-        TextLCD lcddisplay = ev3brick.getTextLCD();
-        // drawing text on the LCD screen based on
-        // coordinates
-        lcddisplay.drawString("HelloWorld", 2, 4);
-        // exit program after any button pressed
-        buttons.waitForAnyPress();
+        leftMotor.stop(true);
+        rightMotor.stop(true);
 
     }
 }
