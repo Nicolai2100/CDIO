@@ -4,6 +4,7 @@ import lejos.hardware.BrickInfo;
 import lejos.hardware.Sound;
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
+import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
 import lejos.utility.Delay;
 
@@ -28,24 +29,27 @@ public class Main {
         ev3 = new RemoteEV3(bricks[0].getIPAddress());
         ev3.setDefault();
 
-        // create two motor objects to control the motors.
-        UnregulatedMotor motorB = new UnregulatedMotor(MotorPort.B);
-        UnregulatedMotor motorC = new UnregulatedMotor(MotorPort.C);
+        // create motor objects to control the motor.
+        //UnregulatedMotor motorA = new UnregulatedMotor(MotorPort.A);
+        RMIRegulatedMotor rmiMotorA = ev3.createRegulatedMotor("A", 'M');
 
         // set motors to 50% power.
-        motorB.setPower(50);
-        motorC.setPower(50);
+        //motorA.setPower(20);
+        rmiMotorA.setSpeed(20);
+        rmiMotorA.forward();
+        Delay.msDelay(2000);
 
-        // wait 2 seconds.
+        //motorA.setPower(-20);
+        rmiMotorA.backward();
         Delay.msDelay(2000);
 
         // stop motors with brakes on.
-        motorB.stop();
-        motorC.stop();
+        //motorA.stop();
+        rmiMotorA.stop(false);
 
         // free up motor resources.
-        motorB.close();
-        motorC.close();
+        //motorA.close();
+        rmiMotorA.close();
 
         Sound.beepSequence(); // we are done.
 
