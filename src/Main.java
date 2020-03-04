@@ -29,26 +29,25 @@ public class Main {
         ev3.setDefault();
 
         // create two motor objects to control the motors.
-        UnregulatedMotor motorA = new UnregulatedMotor(MotorPort.B);
-        UnregulatedMotor motorB = new UnregulatedMotor(MotorPort.C);
+        UnregulatedMotor motorB = new UnregulatedMotor(MotorPort.B);
+        UnregulatedMotor motorC = new UnregulatedMotor(MotorPort.C);
 
         // set motors to 50% power.
-        motorA.setPower(50);
         motorB.setPower(50);
+        motorC.setPower(50);
 
         // wait 2 seconds.
         Delay.msDelay(2000);
 
         // stop motors with brakes on.
-        motorA.stop();
         motorB.stop();
+        motorC.stop();
 
         // free up motor resources.
-        motorA.close();
         motorB.close();
+        motorC.close();
 
         Sound.beepSequence(); // we are done.
-
 
 
     }
