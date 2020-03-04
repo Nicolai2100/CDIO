@@ -1,8 +1,9 @@
-import lejos.hardware.*;
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.hardware.Brick;
+import lejos.hardware.BrickFinder;
+import lejos.hardware.BrickInfo;
+import lejos.hardware.Sound;
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
-import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
 import lejos.utility.Delay;
 
@@ -11,14 +12,10 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class Main {
-    static EV3LargeRegulatedMotor lEFT_MOTOR;
 
-    public static void main(String[] args) throws RemoteException, MalformedURLException, NotBoundException {
+    public static void main(String[] args) throws RemoteException, NotBoundException, MalformedURLException {
 
-
-        // Detecting EV3 Brick
-
-        RemoteEV3 ev3 = null;
+        RemoteEV3 ev3;
         BrickInfo[] bricks = BrickFinder.discover();
 
         for (BrickInfo info : bricks) {
@@ -27,75 +24,31 @@ public class Main {
             brick.getAudio().systemSound(0);
 
         }
-        if (bricks.length == 1) {
-            ev3 = new RemoteEV3(bricks[0].getIPAddress());
-            ev3.setDefault();
-            Sound.beep();
-            Sound.beep();
-        }
 
-        RMIRegulatedMotor leftMotor = ev3.createRegulatedMotor("B", 'L');
-        leftMotor.setSpeed(2000);
-        leftMotor.forward();
+        ev3 = new RemoteEV3(bricks[0].getIPAddress());
+        ev3.setDefault();
 
+        // create two motor objects to control the motors.
+        UnregulatedMotor motorB = new UnregulatedMotor(MotorPort.B);
+        UnregulatedMotor motorC = new UnregulatedMotor(MotorPort.C);
+
+        // set motors to 50% power.
+        motorB.setPower(50);
+        motorC.setPower(50);
+
+        // wait 2 seconds.
         Delay.msDelay(2000);
-        leftMotor.stop(true);
-        leftMotor.close();
 
+        // stop motors with brakes on.
+        motorB.stop();
+        motorC.stop();
 
-
-//        RMIRegulatedMotor rightMotor = ev3.createRegulatedMotor("C", 'L');
-        ///  RMIRegulatedMotor hightMotor = ev3.createRegulatedMotor("B", 'L');
-        /*leftMotor.setSpeed(-50);
-        leftMotor.forward();*/
-        //  rightMotor.setSpeed(-50);
-        //rightMotor.forward();
-
-        /*hightMotor.setSpeed(-50);
-        hightMotor.forward();*/
-
-/*
-
-        leftMotor.stop(true);
-        rightMotor.stop(true);
-*/
-
-
-
-/*        lEFT_MOTOR = new EV3LargeRegulatedMotor(MotorPort. A);
-        lEFT_MOTOR = new EV3LargeRegulatedMotor(MotorPort. A);
-
-
-
-        lEFT_MOTOR.setSpeed(200);
-        Delay.msDelay(2000);
-        lEFT_MOTOR.stop();
-        lEFT_MOTOR.close();*/
-
-
-//        Button.LEDPattern(4);     // flash green led and
-
-        //lEFT_MOTOR.setSpeed(200);
-        //  ev3.s Sound.beepSequenceUp();   // make sound when ready.
-
-
-//        RemoteEV3 ev3 = (RemoteEV3) BrickFinder.getDefault();
-
+        // free up motor resources.
+        motorB.close();
+        motorC.close();
 
         Sound.beepSequence(); // we are done.
 
-/*
-
-        RMIRegulatedMotor leftMotor = ev3.createRegulatedMotor("B", 'L');
-        RMIRegulatedMotor rightMotor = ev3.createRegulatedMotor("C", 'L');*/
-/*
-        leftMotor.setSpeed(-50);
-        leftMotor.forward();
-        rightMotor.setSpeed(-50);
-        rightMotor.forward();*/
-
-     /*   leftMotor.stop(true);
-        rightMotor.stop(true);*/
 
     }
 }
