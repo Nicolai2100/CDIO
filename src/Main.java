@@ -52,30 +52,29 @@ public class Main {
 
 */
 
-
+/*
         RemoteEV3 ev3 = new RemoteEV3("192.168.43.206");
         ev3.setDefault();
         Sound.beep();
+        Sound.beep();*/
+
+        /*Sound.beep();
+
+
         Sound.beep();
 
         Sound.beep();
 
         Sound.beep();
+*/
 
-        Sound.beep();
-
-        Sound.beep();
-
-
-/*
         RemoteEV3 ev3 = null;
         BrickInfo[] bricks = BrickFinder.discover();
 
         for (BrickInfo info : bricks) {
             System.out.println(info.getIPAddress());
-            */
-/*Brick brick = new RemoteEV3(info.getIPAddress());
-            brick.getAudio().systemSound(0);*//*
+            Brick brick = new RemoteEV3(info.getIPAddress());
+            brick.getAudio().systemSound(0);
 
         }
         if (bricks.length == 1) {
@@ -83,8 +82,6 @@ public class Main {
             ev3.setDefault();
             Sound.beep();
         }
-*/
-
 
 
     }
