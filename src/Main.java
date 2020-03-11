@@ -1,4 +1,5 @@
 import Rod.ExceptionNoIpFound;
+import lejos.hardware.Sound;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -15,7 +16,10 @@ public class Main {
 
         //Kører på port B og C
         DrivingMethods drive = new DrivingMethods();
-        drive.driveInCircle(10);
+        // drive.driveInCircle(10);
+        drive.backWards();
+
+        Sound.beepSequence(); // we are done.
 
         //close all ports
 /*        try {
