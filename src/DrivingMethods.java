@@ -145,4 +145,10 @@ public class DrivingMethods {
         motorC.close();
         Sound.beepSequence(); // we are done.
     }
+
+    public void detectAndGrab() {
+        if (Beast.getSensorUS().getRange() < Beast.critialRange) {
+            Beast.grabAndLift();
+        }
+    }
 }

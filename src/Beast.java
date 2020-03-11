@@ -82,17 +82,21 @@ public class Beast extends RemoteEV3 {
         return true;
     }
 
-    public static void grabAndLift() throws RemoteException {
-        // Grab and lift
-        motorD.setSpeed(1000);
-        motorD.forward();
-        Delay.msDelay(1500);
+    public static void grabAndLift() {
+        try {
+            // Grab and lift
+            motorD.setSpeed(1000);
+            motorD.forward();
+            Delay.msDelay(1500);
 
-        //return to default
-        motorD.backward();
-        Delay.msDelay(2000);
-        motorD.forward();
-        Delay.msDelay(500);
+            //return to default
+            motorD.backward();
+            Delay.msDelay(2000);
+            motorD.forward();
+            Delay.msDelay(500);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void dispose() throws RemoteException {
