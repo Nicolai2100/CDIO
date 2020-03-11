@@ -1,3 +1,5 @@
+package Rod;
+
 import lejos.hardware.Audio;
 import lejos.hardware.Key;
 import lejos.hardware.Keys;
@@ -11,7 +13,7 @@ import lejos.hardware.lcd.TextLCD;
 import lejos.hardware.port.Port;
 import lejos.hardware.video.Video;
 
-public class MockBrick implements Mock{
+public class MockImpl implements IMock {
 
 	public Port getPort(String portName) {
 		// TODO Auto-generated method stub
