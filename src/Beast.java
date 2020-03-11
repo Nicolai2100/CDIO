@@ -3,7 +3,11 @@ import lejos.hardware.BrickFinder;
 import lejos.hardware.BrickInfo;
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
+import lejos.robotics.RangeFinder;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -13,8 +17,11 @@ public class Beast extends RemoteEV3 {
     private static RemoteEV3 beast = null;
     private static UnregulatedMotor motorB;
     private static UnregulatedMotor motorC;
+    private static UltraSonicSensor ultraSonicSensor;
+
     private static BrickInfo[] bricks = BrickFinder.discover();
     private static String IPAddress = "";
+    private static EV3UltrasonicSensor sampleProvider;
 
     private Beast(String host) throws RemoteException, MalformedURLException, NotBoundException {
         super(host);
@@ -31,6 +38,8 @@ public class Beast extends RemoteEV3 {
                 beast = new RemoteEV3(bricks[0].getIPAddress());
                 motorB = new UnregulatedMotor(MotorPort.B);
                 motorC = new UnregulatedMotor(MotorPort.C);
+                ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
+
 
                 beast.setDefault();
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -49,4 +58,9 @@ public class Beast extends RemoteEV3 {
     public static UnregulatedMotor getMotorC() {
         return motorC;
     }
+
+    public static UltraSonicSensor getSensorUS() {
+        return ultraSonicSensor;
+    }
+
 }

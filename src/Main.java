@@ -1,5 +1,6 @@
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
+import lejos.hardware.port.SensorPort;
 import lejos.utility.Delay;
 import sun.org.mozilla.javascript.internal.EcmaError;
 
@@ -18,22 +19,37 @@ public class Main {
 
         //Kører på port B og C
         DrivingMethods drivingMethods = new DrivingMethods();
+        float range = Beast.getSensorUS().getRange();
 
 
         drivingMethods.driveContinuously();
-        Delay.msDelay(200);
-        drivingMethods.turn90DGRight();
-        drivingMethods.stopDriving();
+        int i = 0;
+        while (i < 5) {
+
+            while (range > 0.12) {
+                System.out.println("Range: " + range * 100);
+                Delay.msDelay(100);
+                range = Beast.getSensorUS().getRange();
+            }
+            drivingMethods.turn90DGRight();
+            drivingMethods.stopDriving();
+            drivingMethods.driveContinuously();
+            i++;
+            range = Beast.getSensorUS().getRange();
+
+
+        }
+        drivingMethods.closeDriving();
 
 
         //close all ports
-        try{
+        try {
+            Beast.getSensorUS().close();
             Beast.getMotorB().close();
             Beast.getMotorC().close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

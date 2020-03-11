@@ -23,12 +23,23 @@ public class DrivingMethods {
     public void stopDriving() {
         motorB.stop();
         motorC.stop();
+    }
+
+    public void closeDriving() {
         motorB.close();
         motorC.close();
         Sound.beepSequence(); // we are done.
     }
 
+
     public void turn90DGRight() {
+        motorC.stop();
+
+        Delay.msDelay(4000);
+
+    }
+
+    public void turn90DGRightAroundAxis() {
         motorC.backward();
         motorC.setPower(50);
         Delay.msDelay(1900);
