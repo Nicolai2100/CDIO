@@ -1,8 +1,4 @@
-import lejos.hardware.motor.UnregulatedMotor;
-import lejos.hardware.port.MotorPort;
-import lejos.hardware.port.SensorPort;
 import lejos.utility.Delay;
-import sun.org.mozilla.javascript.internal.EcmaError;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;

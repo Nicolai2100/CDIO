@@ -1,6 +1,5 @@
 import lejos.hardware.Sound;
 import lejos.hardware.motor.UnregulatedMotor;
-import lejos.hardware.port.MotorPort;
 import lejos.utility.Delay;
 
 public class DrivingMethods {

@@ -26,7 +26,7 @@ public class Beast extends RemoteEV3 {
         super(host);
     }
 
-    public static RemoteEV3 getBeast() throws RemoteException, MalformedURLException, ExceptionNoIpFound, NotBoundException {
+    public static RemoteEV3 getBeast() throws RemoteException, MalformedURLException, NotBoundException {
         if (beast == null) {
             try {
                 for (BrickInfo info : bricks) {
