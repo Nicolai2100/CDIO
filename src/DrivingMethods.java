@@ -12,6 +12,60 @@ public class DrivingMethods {
 
     }
 
+
+    public void driveInCircle(int times) {
+        float range = Beast.getSensorUS().getRange();
+        int i = 0;
+        while (i < times) {
+            //Kør lige ud indtil afstanden bliver for lille
+            backWards();
+            driveContinuously();
+            while (range > Beast.critialRange) {
+                System.out.println("Range: " + range * 100 + " cm");
+                Delay.msDelay(10);
+                range = Beast.getSensorUS().getRange();
+                //Bak hvis du sidder fast
+                backWards();
+            }
+            //Drej til højre indtil afstanden bliver stor nok
+            Beast.getMotorC().stop();
+            while (range < Beast.critialRange - 0.8) {
+                System.out.println("Range: " + range * 100 + " cm");
+                Delay.msDelay(10);
+                range = Beast.getSensorUS().getRange();
+
+                //Bak hvis du sidder fast
+                backWards();
+            }
+            driveContinuously();
+            i++;
+            System.out.println(i);
+            range = Beast.getSensorUS().getRange();
+
+        }
+        stopDriving();
+        closeDriving();
+        Beast.getSensorUS().close();
+    }
+
+    public void backWards() {
+        if ((Beast.getMotorC().isMoving() || Beast.getMotorB().isMoving()) && Beast.hasNoForwardMotion()) {
+            float range = Beast.getSensorUS().getRange();
+            while (range < Beast.critialRange) {
+                System.out.println("Range: " + range * 100 + " cm");
+                Delay.msDelay(10);
+                range = Beast.getSensorUS().getRange();
+
+                motorB.backward();
+                motorB.setPower(50);
+                motorC.backward();
+                motorC.setPower(50);
+            }
+        }
+        motorB.close();
+        motorC.close();
+    }
+
     public void driveContinuously() {
         motorB.forward();
         motorB.setPower(50);
@@ -27,7 +81,11 @@ public class DrivingMethods {
     public void closeDriving() {
         motorB.close();
         motorC.close();
-        Sound.beepSequence(); // we are done.
+    }
+
+
+    public void turnRightUntil() {
+        motorC.stop();
     }
 
 
@@ -88,5 +146,11 @@ public class DrivingMethods {
         motorB.close();
         motorC.close();
         Sound.beepSequence(); // we are done.
+    }
+
+    public void detectAndGrab() {
+        if (Beast.getSensorUS().getRange() < Beast.critialRange) {
+            Beast.grabAndLift();
+        }
     }
 }

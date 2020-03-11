@@ -1,4 +1,5 @@
-import lejos.utility.Delay;
+import Rod.ExceptionNoIpFound;
+import lejos.hardware.Sound;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -13,32 +14,17 @@ public class Main {
             e.printStackTrace();
         }
 
+
         //Kører på port B og C
-        DrivingMethods drivingMethods = new DrivingMethods();
-        float range = Beast.getSensorUS().getRange();
+        DrivingMethods drive = new DrivingMethods();
+        // drive.driveInCircle(10);
+        drive.driveTest();
+        Sound.beepSequence(); // we are done.
 
-
-        drivingMethods.driveContinuously();
-        int i = 0;
-        while (i < 5) {
-            while (range > 0.12) {
-                System.out.println("Range: " + range * 100);
-                Delay.msDelay(100);
-                range = Beast.getSensorUS().getRange();
-            }
-            drivingMethods.turn90DGRight();
-            drivingMethods.stopDriving();
-            drivingMethods.driveContinuously();
-            i++;
-            range = Beast.getSensorUS().getRange();
-
-
-        }
-        drivingMethods.closeDriving();
-
+        Beast.dispose();
 
         //close all ports
-        try {
+/*        try {
             Beast.getSensorUS().close();
             Beast.getMotorB().close();
             Beast.getMotorC().close();
@@ -46,5 +32,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+  */
     }
 }
