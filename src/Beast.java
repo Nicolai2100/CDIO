@@ -1,21 +1,17 @@
-import sensors.ColorSensor.ColorSensor;
 import Rod.ExceptionNoIpFound;
-import lejos.robotics.Gyroscope;
-import sensors.GyroSensor.GyroSensor;
-import sensors.InfraredSensor.InfraredSensor;
-import sensors.TouchSensor.TouchSensor;
-import sensors.UltrasonicSensor.UltraSonicSensor;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.BrickInfo;
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.*;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.remote.ev3.RemoteEV3;
-import lejos.robotics.RangeFinder;
 import lejos.utility.Delay;
+import sensors.ColorSensor.ColorSensor;
+import sensors.GyroSensor.GyroSensor;
 import sensors.InfraredSensor.InfraredSensor;
+import sensors.TouchSensor.TouchSensor;
 import sensors.UltrasonicSensor.UltraSonicSensor;
 
 import java.net.MalformedURLException;
@@ -33,7 +29,6 @@ public class Beast extends RemoteEV3 {
     private static InfraredSensor infraredSensor;
     private static TouchSensor touchSensor;
     private static GyroSensor gyroSensor;
-    private static InfraredSensor infraredSensor;
 
     private static BrickInfo[] bricks = BrickFinder.discover();
     private static String IPAddress = "";
@@ -91,8 +86,6 @@ public class Beast extends RemoteEV3 {
 //                touchSensor = new TouchSensor(SensorPort.S1);
 //                gyroSensor = new GyroSensor(SensorPort.S2);
 
-
-                infraredSensor = new InfraredSensor();
                 beast.setDefault();
             } catch (ArrayIndexOutOfBoundsException e) {
                 e.printStackTrace();
