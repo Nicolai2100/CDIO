@@ -61,10 +61,10 @@ public class Beast extends RemoteEV3 {
                     System.out.println("Closing infrared sensor");
                 } else if (obj instanceof ColorSensor) {
                     ((ColorSensor) obj).close();
-                    System.out.println("Closing infrared sensor");
+                    System.out.println("Closing color sensor");
                 } else if (obj instanceof GyroSensor) {
                     ((GyroSensor) obj).close();
-                    System.out.println("Closing infrared sensor");
+                    System.out.println("Closing gyro sensor");
                 }
 
             } catch (Exception e) {
@@ -92,14 +92,14 @@ public class Beast extends RemoteEV3 {
                 motorD = new UnregulatedMotor(MotorPort.D);
                 ports.add(motorD);
                 ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
-                colorSensor = new ColorSensor(SensorPort.S2); //Skal ændres til S3, da Gyro sidder i S2
                 ports.add(ultraSonicSensor);
+                colorSensor = new ColorSensor(SensorPort.S2); //Skal ændres til S3, da Gyro sidder i S2
+                ports.add(colorSensor);
                 infraredSensor = new InfraredSensor(SensorPort.S1);
                 ports.add(infraredSensor);
-                //
-//                touchSensor = new TouchSensor(SensorPort.S1);
-//                gyroSensor = new GyroSensor(SensorPort.S2);
 
+                //touchSensor = new TouchSensor(SensorPort.S1);
+                //gyroSensor = new GyroSensor(SensorPort.S2);
 
                 beast.setDefault();
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -119,9 +119,13 @@ public class Beast extends RemoteEV3 {
         return motorC;
     }
 
-    public static UltraSonicSensor getSensorUS() { return ultraSonicSensor; }
+    public static UltraSonicSensor getSensorUS() {
+        return ultraSonicSensor;
+    }
 
-    public static ColorSensor getSensorCS() { return colorSensor; }
+    public static ColorSensor getSensorCS() {
+        return colorSensor;
+    }
 
     public static InfraredSensor getSensorIR() {
         return infraredSensor;
