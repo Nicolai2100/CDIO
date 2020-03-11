@@ -1,9 +1,13 @@
 package sensors.ColorSensor;
 
 import lejos.hardware.*;
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.remote.ev3.RemoteEV3;
 import lejos.robotics.Color;
+import lejos.robotics.SampleProvider;
 import lejos.utility.Delay;
 
 import java.net.MalformedURLException;
@@ -22,34 +26,24 @@ public class ColorDemo
             brick.getAudio().systemSound(0);
         }
 
-        ColorSensor color = new ColorSensor(SensorPort.S2);
+        ColorSensor colorSensor = new ColorSensor(SensorPort.S2);
 
-        System.out.println("Color Demo");
-        //Lcd.print(2, "Press to start");
-
-       // Button.LEDPattern(4);    // flash green led and
-        Sound.beepSequenceUp();    // make sound when ready.
+        System.out.println("ColorSensor kører..");
+        Sound.beepSequenceUp();    // ColorSensor er klar
 
 
         Delay.msDelay(1000);
 
-        color.setRedMode();
-        color.setFloodLight(Color.WHITE);
-        color.setFloodLight(true);
+        colorSensor.setColorIdMode();
+        colorSensor.setFloodLight(false);
 
 
-        Delay.msDelay(1000);
-
-
-        color.setRGBMode();
-        color.setFloodLight(Color.WHITE);
-
-        Color rgb;
-
-        while(true) {
-            rgb = color.getColor();
-            System.out.println("Color:" + color.colorName(color.getColorID()));
+        boolean run  = true;
+        while (run) {
+            System.out.println(ColorSensor.colorName(colorSensor.getColorID()));
+            Delay.msDelay(250);
         }
-
+        colorSensor.close();
     }
 }
+
