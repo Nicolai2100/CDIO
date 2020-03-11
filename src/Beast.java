@@ -1,5 +1,6 @@
 import Rod.ExceptionNoIpFound;
 import lejos.robotics.Gyroscope;
+import sensors.ColorSensor.ColorSensor;
 import sensors.GyroSensor.GyroSensor;
 import sensors.InfraredSensor.InfraredSensor;
 import sensors.TouchSensor.TouchSensor;
@@ -31,13 +32,12 @@ public class Beast extends RemoteEV3 {
     private static InfraredSensor infraredSensor;
     private static TouchSensor touchSensor;
     private static GyroSensor gyroSensor;
-    private static InfraredSensor infraredSensor;
-
     private static BrickInfo[] bricks = BrickFinder.discover();
     private static String IPAddress = "";
     private static EV3UltrasonicSensor sampleProvider;
 
     public static float critialRange = 0.1f;
+
 
     public static ArrayList<Object> ports = new ArrayList<>();
 
@@ -50,16 +50,25 @@ public class Beast extends RemoteEV3 {
 
         for (Object obj : ports) {
             try {
-                if (obj instanceof UnregulatedMotor){
+                if (obj instanceof UnregulatedMotor) {
                     ((UnregulatedMotor) obj).close();
                     System.out.println("Closing unregulated motor");
-                }
-                else if (obj instanceof UltraSonicSensor){
+                } else if (obj instanceof UltraSonicSensor) {
                     ((UltraSonicSensor) obj).close();
                     System.out.println("Closing ultrasonic sensor");
+                } else if (obj instanceof InfraredSensor) {
+                    ((InfraredSensor) obj).close();
+                    System.out.println("Closing infrared sensor");
+                } else if (obj instanceof ColorSensor) {
+                    ((ColorSensor) obj).close();
+                    System.out.println("Closing infrared sensor");
+                } else if (obj instanceof GyroSensor) {
+                    ((GyroSensor) obj).close();
+                    System.out.println("Closing infrared sensor");
                 }
 
             } catch (Exception e) {
+                System.out.println("Closing port error!");
                 e.printStackTrace();
             }
         }
@@ -82,14 +91,15 @@ public class Beast extends RemoteEV3 {
                 ports.add(motorC);
                 motorD = new UnregulatedMotor(MotorPort.D);
                 ports.add(motorD);
-
                 ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
+                ports.add(ultraSonicSensor);
                 infraredSensor = new InfraredSensor(SensorPort.S1);
+                ports.add(infraredSensor);
+                //
 //                touchSensor = new TouchSensor(SensorPort.S1);
 //                gyroSensor = new GyroSensor(SensorPort.S2);
 
 
-                infraredSensor = new InfraredSensor();
                 beast.setDefault();
             } catch (ArrayIndexOutOfBoundsException e) {
                 e.printStackTrace();

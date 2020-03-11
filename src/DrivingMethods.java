@@ -9,9 +9,7 @@ public class DrivingMethods {
     public DrivingMethods() {
         motorB = Beast.getMotorB();
         motorC = Beast.getMotorC();
-
     }
-
 
     public void driveInCircle(int times) {
         float range = Beast.getSensorUS().getRange();
@@ -44,8 +42,6 @@ public class DrivingMethods {
 
         }
         stopDriving();
-        closeDriving();
-        Beast.getSensorUS().close();
     }
 
     public void backWards() {
@@ -62,8 +58,6 @@ public class DrivingMethods {
                 motorC.setPower(50);
             }
         }
-        motorB.close();
-        motorC.close();
     }
 
     public void driveContinuously() {
@@ -77,12 +71,6 @@ public class DrivingMethods {
         motorB.stop();
         motorC.stop();
     }
-
-    public void closeDriving() {
-        motorB.close();
-        motorC.close();
-    }
-
 
     public void turnRightUntil() {
         motorC.stop();
@@ -130,8 +118,6 @@ public class DrivingMethods {
         motorC.stop();
 
         // free up motor resources.
-        motorB.close();
-        motorC.close();
         Sound.beepSequence(); // we are done.
     }
 
@@ -143,8 +129,6 @@ public class DrivingMethods {
         Delay.msDelay(200);
         motorB.stop();
         motorC.stop();
-        motorB.close();
-        motorC.close();
         Sound.beepSequence(); // we are done.
     }
 

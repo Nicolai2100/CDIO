@@ -14,7 +14,6 @@ public class Main {
             e.printStackTrace();
         }
 
-
         //Kører på port B og C
         DrivingMethods drive = new DrivingMethods();
         // drive.driveInCircle(10);
@@ -22,16 +21,5 @@ public class Main {
         Sound.beepSequence(); // we are done.
 
         Beast.dispose();
-
-        //close all ports
-/*        try {
-            Beast.getSensorUS().close();
-            Beast.getMotorB().close();
-            Beast.getMotorC().close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-  */
     }
 }
