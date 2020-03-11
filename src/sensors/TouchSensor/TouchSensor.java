@@ -7,8 +7,6 @@ import lejos.robotics.SampleProvider;
 
 /**
  * https://github.com/stemrobotics/EV3-Exercises/blob/master/TouchSensor.java
- *
- * @author StemRobotics
  */
 public class TouchSensor {
 

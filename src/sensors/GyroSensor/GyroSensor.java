@@ -7,8 +7,8 @@ import lejos.robotics.SampleProvider;
 
 
 /**
+ * https://stemrobotics.cs.pdx.edu/node/4576?root=4196
  * https://github.com/stemrobotics/EV3-Exercises/blob/master/GyroSensor.java
- * @author StemRobotics
  */
 public class GyroSensor implements Gyroscope {
 

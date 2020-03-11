@@ -8,7 +8,6 @@ import lejos.hardware.lcd.TextLCD;
 
 /**
  * https://github.com/stemrobotics/EV3-Exercises/blob/master/Lcd.java
- * @author StemRobotics
  */
 public class Lcd {
 

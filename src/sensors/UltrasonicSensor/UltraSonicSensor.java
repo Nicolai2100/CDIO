@@ -5,6 +5,10 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.RangeFinder;
 import lejos.robotics.SampleProvider;
 
+/**
+ *https://stemrobotics.cs.pdx.edu/node/4576?root=4196
+ *https://github.com/stemrobotics/EV3-Exercises/blob/master/UltraSonicSensor.java
+ */
 public class UltraSonicSensor implements RangeFinder {
     EV3UltrasonicSensor sensor;
     SampleProvider sampleProvider;

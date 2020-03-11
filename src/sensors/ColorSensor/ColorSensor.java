@@ -6,6 +6,10 @@ import lejos.robotics.Color;
 import lejos.robotics.ColorDetector;
 import lejos.robotics.ColorIdentifier;
 
+/**
+ * https://stemrobotics.cs.pdx.edu/node/4576?root=4196
+ * https://github.com/stemrobotics/EV3-Exercises/blob/master/ColorSensor.java
+ */
 public class ColorSensor implements ColorDetector, ColorIdentifier
 {
     EV3ColorSensor sensor;

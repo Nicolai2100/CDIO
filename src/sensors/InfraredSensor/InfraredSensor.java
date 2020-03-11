@@ -5,6 +5,9 @@ import lejos.hardware.sensor.EV3IRSensor;
 import lejos.robotics.RangeFinder;
 import lejos.robotics.SampleProvider;
 
+/**
+ * This class has the same methods as an UltraSonicSensor.
+ */
 public class InfraredSensor implements RangeFinder {
 
     EV3IRSensor sensor;
