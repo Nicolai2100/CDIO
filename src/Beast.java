@@ -2,15 +2,12 @@ import Rod.ExceptionNoIpFound;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.BrickInfo;
-import lejos.hardware.Sound;
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
-import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.remote.ev3.RMIRegulatedMotor;
+import lejos.hardware.sensor.*;
 import lejos.remote.ev3.RemoteEV3;
-import lejos.robotics.geometry.Point;
+import lejos.robotics.RangeFinder;
 import lejos.utility.Delay;
 import sensors.InfraredSensor.InfraredSensor;
 import sensors.UltrasonicSensor.UltraSonicSensor;
@@ -24,7 +21,7 @@ public class Beast extends RemoteEV3 {
     private static RemoteEV3 beast = null;
     private static UnregulatedMotor motorB;
     private static UnregulatedMotor motorC;
-    private static RMIRegulatedMotor motorD;
+    private static UnregulatedMotor motorD;
     private static UltraSonicSensor ultraSonicSensor;
     private static InfraredSensor infraredSensor;
 
@@ -32,12 +29,33 @@ public class Beast extends RemoteEV3 {
     private static String IPAddress = "";
     private static EV3UltrasonicSensor sampleProvider;
 
-    public static float critialRange = 0.2f;
+    public static float critialRange = 0.1f;
 
-    public static ArrayList<Port> ports = new ArrayList<>();
+    public static ArrayList<Object> ports = new ArrayList<>();
+
 
     private Beast(String host) throws RemoteException, MalformedURLException, NotBoundException {
         super(host);
+    }
+
+    public static void dispose() throws RemoteException {
+
+        for (Object obj : ports) {
+            try {
+                if (obj instanceof UnregulatedMotor){
+                    ((UnregulatedMotor) obj).close();
+                    System.out.println("Closing unregulated motor");
+                }
+                else if (obj instanceof UltraSonicSensor){
+                    ((UltraSonicSensor) obj).close();
+                    System.out.println("Closing ultrasonic sensor");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public static RemoteEV3 getBeast() throws RemoteException, MalformedURLException, ExceptionNoIpFound, NotBoundException {
@@ -51,16 +69,14 @@ public class Beast extends RemoteEV3 {
                 beast = new RemoteEV3(bricks[0].getIPAddress());
 
                 motorB = new UnregulatedMotor(MotorPort.B);
+                ports.add(motorB);
                 motorC = new UnregulatedMotor(MotorPort.C);
-                motorD = beast.createRegulatedMotor("D", 'M');
+                ports.add(motorC);
+                motorD = new UnregulatedMotor(MotorPort.D);
+                ports.add(motorD);
 
                 ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
                 infraredSensor = new InfraredSensor();
-
-                ports.add(MotorPort.B);
-                ports.add(MotorPort.C);
-                ports.add(SensorPort.S4);
-
                 beast.setDefault();
             } catch (ArrayIndexOutOfBoundsException e) {
                 e.printStackTrace();
@@ -95,26 +111,16 @@ public class Beast extends RemoteEV3 {
     }
 
     public static void grabAndLift() {
-        try {
-            // Grab and lift
-            motorD.setSpeed(1000);
-            motorD.forward();
-            Delay.msDelay(1500);
+        // Grab and lift
+        motorD.setPower(1000);
+        motorD.forward();
+        Delay.msDelay(1500);
 
-            //return to default
-            motorD.backward();
-            Delay.msDelay(2000);
-            motorD.forward();
-            Delay.msDelay(500);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        //return to default
+        motorD.backward();
+        Delay.msDelay(2000);
+        motorD.forward();
+        Delay.msDelay(500);
     }
 
-    public static void dispose() throws RemoteException {
-        motorB.close();
-        motorC.close();
-        motorD.close();
-        ultraSonicSensor.close();
-    }
 }

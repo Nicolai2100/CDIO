@@ -14,12 +14,14 @@ public class Main {
             e.printStackTrace();
         }
 
+
         //Kører på port B og C
         DrivingMethods drive = new DrivingMethods();
         // drive.driveInCircle(10);
-        drive.backWards();
-
+        drive.driveTest();
         Sound.beepSequence(); // we are done.
+
+        Beast.dispose();
 
         //close all ports
 /*        try {
@@ -30,5 +32,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-  */  }
+  */
+    }
 }
