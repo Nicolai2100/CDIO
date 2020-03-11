@@ -1,3 +1,4 @@
+import sensors.UltrasonicSensor.UltraSonicSensor;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.BrickInfo;
@@ -5,9 +6,7 @@ import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
-import lejos.robotics.RangeFinder;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;

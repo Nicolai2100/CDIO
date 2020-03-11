@@ -25,7 +25,6 @@ public class Main {
         drivingMethods.driveContinuously();
         int i = 0;
         while (i < 5) {
-
             while (range > 0.12) {
                 System.out.println("Range: " + range * 100);
                 Delay.msDelay(100);

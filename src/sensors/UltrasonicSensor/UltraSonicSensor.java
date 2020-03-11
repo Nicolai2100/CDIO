@@ -1,9 +1,9 @@
+package sensors.UltrasonicSensor;
+
 import lejos.hardware.port.Port;
-import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.RangeFinder;
 import lejos.robotics.SampleProvider;
-import sun.management.Sensor;
 
 public class UltraSonicSensor implements RangeFinder
 {
