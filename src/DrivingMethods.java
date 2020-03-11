@@ -13,6 +13,56 @@ public class DrivingMethods {
 
     }
 
+
+    public void driveInCircle(int times) {
+        float range = Beast.getSensorUS().getRange();
+        int i = 0;
+        while (i < times) {
+            //Kør lige ud indtil afstanden bliver for lille
+            driveContinuously();
+            while (range > Beast.critialRange) {
+                System.out.println("Range: " + range * 100 + " cm");
+                Delay.msDelay(10);
+                range = Beast.getSensorUS().getRange();
+            }
+            //Drej til højre indtil afstanden bliver stor nok
+            Beast.getMotorC().stop();
+            while (range < Beast.critialRange - 0.8) {
+                System.out.println("Range: " + range * 100 + " cm");
+                Delay.msDelay(10);
+                range = Beast.getSensorUS().getRange();
+
+                //Bak hvis du sidder fast
+                if ((Beast.getMotorC().isMoving() || Beast.getMotorB().isMoving()) && Beast.hasNoForwardMotion()) {
+                    backWards();
+                }
+            }
+            driveContinuously();
+            i++;
+            System.out.println(i);
+            range = Beast.getSensorUS().getRange();
+
+        }
+        stopDriving();
+        closeDriving();
+    }
+
+    private void backWards() {
+        float range = Beast.getSensorUS().getRange();
+        while (range < Beast.critialRange) {
+            System.out.println("Range: " + range * 100 + " cm");
+            Delay.msDelay(10);
+            range = Beast.getSensorUS().getRange();
+
+            motorB.backward();
+            motorB.setPower(50);
+            motorC.backward();
+            motorC.setPower(50);
+
+        }
+
+    }
+
     public void driveContinuously() {
         motorB.forward();
         motorB.setPower(50);
@@ -28,7 +78,13 @@ public class DrivingMethods {
     public void closeDriving() {
         motorB.close();
         motorC.close();
+        Beast.getSensorUS().close();
         Sound.beepSequence(); // we are done.
+    }
+
+
+    public void turnRightUntil() {
+        motorC.stop();
     }
 
 

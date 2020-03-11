@@ -1,3 +1,4 @@
+import Rod.ExceptionNoIpFound;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.BrickInfo;
@@ -5,9 +6,8 @@ import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
-import lejos.robotics.RangeFinder;
+import lejos.utility.Delay;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -22,6 +22,8 @@ public class Beast extends RemoteEV3 {
     private static BrickInfo[] bricks = BrickFinder.discover();
     private static String IPAddress = "";
     private static EV3UltrasonicSensor sampleProvider;
+
+    public static float critialRange = 0.2f;
 
     private Beast(String host) throws RemoteException, MalformedURLException, NotBoundException {
         super(host);
@@ -63,4 +65,14 @@ public class Beast extends RemoteEV3 {
         return ultraSonicSensor;
     }
 
+    public static boolean hasNoForwardMotion() {
+        float range1 = ultraSonicSensor.getRange();
+        Delay.msDelay(100);
+        float range2 = ultraSonicSensor.getRange();
+        if (range1 - range2 > 0.01) {
+            System.out.println("Sidder fast!");
+            return false;
+        }
+        return true;
+    }
 }
