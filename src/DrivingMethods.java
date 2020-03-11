@@ -11,6 +11,38 @@ public class DrivingMethods {
         motorC = Beast.getMotorC();
     }
 
+
+
+    public void driveInCircle2(int times) {
+        float range = Beast.getSensorUS().getRange();
+        int i = 0;
+        while (true) {
+            //Kør lige ud indtil afstanden bliver for lille
+            driveContinuously();
+            while (range > Beast.critialRange + 1) {
+                System.out.println("Range: " + range * 100 + " cm");
+                Delay.msDelay(10);
+                range = Beast.getSensorUS().getRange();
+            }
+            //Drej til højre indtil afstanden bliver stor nok
+            Beast.getMotorC().stop();
+            while (range < Beast.critialRange - 1) {
+                System.out.println("Range: " + range * 100 + " cm");
+                Delay.msDelay(10);
+                range = Beast.getSensorUS().getRange();
+            }
+            driveContinuously();
+            System.out.println(i);
+            range = Beast.getSensorUS().getRange();
+
+            if (range < 0.1){
+                stopDriving();
+                break;
+            }
+        }
+        stopDriving();
+    }
+
     public void driveInCircle(int times) {
         float range = Beast.getSensorUS().getRange();
         int i = 0;
@@ -76,21 +108,16 @@ public class DrivingMethods {
         motorC.stop();
     }
 
-
     public void turn90DGRight() {
         motorC.stop();
-
         Delay.msDelay(4000);
-
     }
 
     public void turn90DGRightAroundAxis() {
         motorC.backward();
         motorC.setPower(50);
         Delay.msDelay(1900);
-
     }
-
 
     public void driveBackAndForth() {
         //kør lige ud
