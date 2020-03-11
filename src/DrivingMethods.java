@@ -4,9 +4,39 @@ import lejos.hardware.port.MotorPort;
 import lejos.utility.Delay;
 
 public class DrivingMethods {
+    UnregulatedMotor motorB;
+    UnregulatedMotor motorC;
+
+    public DrivingMethods() {
+        motorB = Beast.getMotorB();
+        motorC = Beast.getMotorC();
+
+    }
+
+    public void driveContinuously() {
+        motorB.forward();
+        motorB.setPower(50);
+        motorC.forward();
+        motorC.setPower(50);
+    }
+
+    public void stopDriving() {
+        motorB.stop();
+        motorC.stop();
+        motorB.close();
+        motorC.close();
+        Sound.beepSequence(); // we are done.
+    }
+
+    public void turn90DGRight() {
+        motorC.backward();
+        motorC.setPower(50);
+        Delay.msDelay(1900);
+
+    }
 
 
-    public void driveBackAndForth(UnregulatedMotor motorB, UnregulatedMotor motorC) {
+    public void driveBackAndForth() {
         //kør lige ud
         //motor C
         motorC.forward();
@@ -37,7 +67,7 @@ public class DrivingMethods {
         Sound.beepSequence(); // we are done.
     }
 
-    public void driveTest(UnregulatedMotor motorB, UnregulatedMotor motorC) {
+    public void driveTest() {
         motorB.forward();
         motorB.setPower(50);
         motorC.forward();
