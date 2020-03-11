@@ -2,10 +2,12 @@ import Rod.ExceptionNoIpFound;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.BrickInfo;
+import lejos.hardware.Sound;
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
 import lejos.utility.Delay;
 import sensors.UltrasonicSensor.UltraSonicSensor;
@@ -18,6 +20,7 @@ public class Beast extends RemoteEV3 {
     private static RemoteEV3 beast = null;
     private static UnregulatedMotor motorB;
     private static UnregulatedMotor motorC;
+    private static RMIRegulatedMotor motorD;
     private static UltraSonicSensor ultraSonicSensor;
 
     private static BrickInfo[] bricks = BrickFinder.discover();
@@ -41,6 +44,8 @@ public class Beast extends RemoteEV3 {
                 beast = new RemoteEV3(bricks[0].getIPAddress());
                 motorB = new UnregulatedMotor(MotorPort.B);
                 motorC = new UnregulatedMotor(MotorPort.C);
+                motorD = beast.createRegulatedMotor("D", 'M');
+
                 ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
 
 
@@ -75,5 +80,25 @@ public class Beast extends RemoteEV3 {
             return false;
         }
         return true;
+    }
+
+    public static void grabAndLift() throws RemoteException {
+        // Grab and lift
+        motorD.setSpeed(1000);
+        motorD.forward();
+        Delay.msDelay(1500);
+
+        //return to default
+        motorD.backward();
+        Delay.msDelay(2000);
+        motorD.forward();
+        Delay.msDelay(500);
+    }
+
+    public static void dispose() throws RemoteException {
+        motorB.close();
+        motorC.close();
+        motorD.close();
+        ultraSonicSensor.close();
     }
 }
