@@ -20,7 +20,7 @@ public class Beast extends RemoteEV3 {
     private static RemoteEV3 beast = null;
     private static UnregulatedMotor motorB;
     private static UnregulatedMotor motorC;
-    private static RMIRegulatedMotor motorD;
+    private static UnregulatedMotor motorD;
     private static UltraSonicSensor ultraSonicSensor;
 
     private static BrickInfo[] bricks = BrickFinder.discover();
@@ -44,7 +44,8 @@ public class Beast extends RemoteEV3 {
                 beast = new RemoteEV3(bricks[0].getIPAddress());
                 motorB = new UnregulatedMotor(MotorPort.B);
                 motorC = new UnregulatedMotor(MotorPort.C);
-                motorD = beast.createRegulatedMotor("D", 'M');
+                //motorD = beast.createRegulatedMotor("D", 'M');
+                motorD = new UnregulatedMotor(MotorPort.D);
 
                 ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
 
@@ -85,16 +86,20 @@ public class Beast extends RemoteEV3 {
     public static void grabAndLift() {
         try {
             // Grab and lift
-            motorD.setSpeed(1000);
-            motorD.forward();
-            Delay.msDelay(1500);
+            //motorD.setSpeed(1000);
+            //motorD.forward();
+            motorD.setPower(100);
+            //Delay.msDelay(1500);
+            Delay.msDelay(1000);
 
+            /*
             //return to default
             motorD.backward();
             Delay.msDelay(2000);
             motorD.forward();
             Delay.msDelay(500);
-        } catch (RemoteException e) {
+            */
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
