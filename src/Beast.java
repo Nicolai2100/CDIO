@@ -8,6 +8,7 @@ import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.remote.ev3.RemoteEV3;
 import lejos.utility.Delay;
+import sensors.UltrasonicSensor.UltraSonicSensor;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
