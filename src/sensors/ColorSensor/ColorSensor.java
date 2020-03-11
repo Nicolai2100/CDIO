@@ -1,6 +1,4 @@
-package ColorSensor;
-
-import java.util.ArrayList;
+package sensors.ColorSensor;
 
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;
@@ -14,7 +12,7 @@ public class ColorSensor implements ColorDetector, ColorIdentifier
     float[] sample;
 
     /**
-     * Creates ColorSensor object. This is a wrapper class for EV3ColorSensor.
+     * Creates sensors.ColorSensor object. This is a wrapper class for EV3ColorSensor.
      * @param port SensorPort of EV3ColorSensor device.
      */
     public ColorSensor(Port port)

@@ -1,4 +1,4 @@
-package ColorSensor;
+package sensors.ColorSensor;
 
 import lejos.hardware.*;
 import lejos.hardware.port.SensorPort;
