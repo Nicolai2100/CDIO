@@ -1,6 +1,8 @@
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.BrickInfo;
+import lejos.hardware.motor.UnregulatedMotor;
+import lejos.hardware.port.MotorPort;
 import lejos.remote.ev3.RemoteEV3;
 
 import java.net.MalformedURLException;
@@ -8,7 +10,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class Beast extends RemoteEV3 {
-    public static RemoteEV3 beast = null;
+    private static RemoteEV3 beast = null;
+    private static UnregulatedMotor motorB;
+    private static UnregulatedMotor motorC;
     private static BrickInfo[] bricks = BrickFinder.discover();
     private static String IPAddress = "";
 
@@ -25,6 +29,10 @@ public class Beast extends RemoteEV3 {
                     brick.getAudio().systemSound(0);
                 }
                 beast = new RemoteEV3(bricks[0].getIPAddress());
+                motorB = new UnregulatedMotor(MotorPort.B);
+                motorC = new UnregulatedMotor(MotorPort.C);
+
+                beast.setDefault();
             } catch (ArrayIndexOutOfBoundsException e) {
                 e.printStackTrace();
                 System.out.println("Fandt ikke brick på nettet, prøv igen!");
@@ -32,5 +40,13 @@ public class Beast extends RemoteEV3 {
             }
         }
         return beast;
+    }
+
+    public static UnregulatedMotor getMotorB() {
+        return motorB;
+    }
+
+    public static UnregulatedMotor getMotorC() {
+        return motorC;
     }
 }
