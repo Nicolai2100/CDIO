@@ -1,5 +1,4 @@
 import Rod.ExceptionNoIpFound;
-import lejos.robotics.Gyroscope;
 import sensors.ColorSensor.ColorSensor;
 import sensors.GyroSensor.GyroSensor;
 import sensors.InfraredSensor.InfraredSensor;
@@ -11,12 +10,9 @@ import lejos.hardware.BrickInfo;
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.*;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.remote.ev3.RemoteEV3;
-import lejos.robotics.RangeFinder;
 import lejos.utility.Delay;
-import sensors.InfraredSensor.InfraredSensor;
-import sensors.UltrasonicSensor.UltraSonicSensor;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -29,9 +25,11 @@ public class Beast extends RemoteEV3 {
     private static UnregulatedMotor motorC;
     private static UnregulatedMotor motorD;
     private static UltraSonicSensor ultraSonicSensor;
+    private static ColorSensor colorSensor;
     private static InfraredSensor infraredSensor;
     private static TouchSensor touchSensor;
     private static GyroSensor gyroSensor;
+
     private static BrickInfo[] bricks = BrickFinder.discover();
     private static String IPAddress = "";
     private static EV3UltrasonicSensor sampleProvider;
@@ -92,6 +90,7 @@ public class Beast extends RemoteEV3 {
                 motorD = new UnregulatedMotor(MotorPort.D);
                 ports.add(motorD);
                 ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
+                colorSensor = new ColorSensor(SensorPort.S2); //Skal ændres til S3, da Gyro sidder i S2
                 ports.add(ultraSonicSensor);
                 infraredSensor = new InfraredSensor(SensorPort.S1);
                 ports.add(infraredSensor);
@@ -118,9 +117,9 @@ public class Beast extends RemoteEV3 {
         return motorC;
     }
 
-    public static UltraSonicSensor getSensorUS() {
-        return ultraSonicSensor;
-    }
+    public static UltraSonicSensor getSensorUS() { return ultraSonicSensor; }
+
+    public static ColorSensor getSensorCS() { return colorSensor; }
 
     public static InfraredSensor getSensorIR() {
         return infraredSensor;
