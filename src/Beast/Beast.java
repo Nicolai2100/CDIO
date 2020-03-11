@@ -27,7 +27,6 @@ public class Beast {
     private static UnregulatedMotor motorB;
     private static UnregulatedMotor motorC;
     private static UnregulatedMotor motorD;
-    private static UnregulatedMotor motorD;
 
     // Creating Sensors
     private static UltraSonicSensor ultraSonicSensor;
@@ -54,18 +53,30 @@ public class Beast {
                 brick.getAudio().systemSound(0);
             }
             beast = new RemoteEV3(bricks[0].getIPAddress());
-            motorB = new UnregulatedMotor(MotorPort.B);
-            motorC = new UnregulatedMotor(MotorPort.C);
-            //motorD = beast.createRegulatedMotor("D", 'M');
-            motorD = new UnregulatedMotor(MotorPort.D);
 
+            motorB = new UnregulatedMotor(MotorPort.B);
+            ports.add(motorB);
+            motorC = new UnregulatedMotor(MotorPort.C);
+            ports.add(motorC);
+            motorD = new UnregulatedMotor(MotorPort.D);
+            ports.add(motorD);
             ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
-    private Beast(String host) throws RemoteException, MalformedURLException, NotBoundException {
-        super(host);
+            ports.add(ultraSonicSensor);
+            colorSensor = new ColorSensor(SensorPort.S2); //Skal ændres til S3, da Gyro sidder i S2
+            ports.add(colorSensor);
+            infraredSensor = new InfraredSensor(SensorPort.S1);
+            ports.add(infraredSensor);
+
+
+            beast.setDefault();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Fandt ikke brick på nettet, prøv igen!");
+            System.out.println("Ps, dette skal håndteres bedre");
+        }
     }
 
-    public static void dispose() throws RemoteException {
-
+    public static void dispose() {
         for (Object obj : ports) {
             try {
                 if (obj instanceof UnregulatedMotor) {
@@ -89,39 +100,6 @@ public class Beast {
                 System.out.println("Closing port error!");
                 e.printStackTrace();
             }
-        }
-
-    }
-
-    public static RemoteEV3 getBeast() throws RemoteException, MalformedURLException, ExceptionNoIpFound, NotBoundException {
-        if (beast == null) {
-            try {
-                for (BrickInfo info : bricks) {
-                    System.out.println(info.getIPAddress());
-                    Brick brick = new RemoteEV3(info.getIPAddress());
-                    brick.getAudio().systemSound(0);
-                }
-                beast = new RemoteEV3(bricks[0].getIPAddress());
-
-                motorB = new UnregulatedMotor(MotorPort.B);
-                ports.add(motorB);
-                motorC = new UnregulatedMotor(MotorPort.C);
-                ports.add(motorC);
-                motorD = new UnregulatedMotor(MotorPort.D);
-                ports.add(motorD);
-                ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
-                ports.add(ultraSonicSensor);
-                colorSensor = new ColorSensor(SensorPort.S2); //Skal ændres til S3, da Gyro sidder i S2
-                ports.add(colorSensor);
-                infraredSensor = new InfraredSensor(SensorPort.S1);
-                ports.add(infraredSensor);
-
-
-            beast.setDefault();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Fandt ikke brick på nettet, prøv igen!");
-            System.out.println("Ps, dette skal håndteres bedre");
         }
     }
 
@@ -176,13 +154,6 @@ public class Beast {
             // Grab and lift
             motorD.setPower(100);
             Delay.msDelay(1500);
-           // Delay.msDelay(1000);
-        // Grab and lift
-        motorD.setPower(1000);
-        motorD.forward();
-        Delay.msDelay(1500);
-
-            //return to default
             motorD.backward();
             Delay.msDelay(1500);
             //motorD.forward();
@@ -190,17 +161,5 @@ public class Beast {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //return to default
-        motorD.backward();
-        Delay.msDelay(2000);
-        motorD.forward();
-        Delay.msDelay(500);
-    }
-
-    public static void dispose() {
-        motorB.close();
-        motorC.close();
-        motorD.close();
-        ultraSonicSensor.close();
     }
 }

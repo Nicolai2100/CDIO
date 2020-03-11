@@ -18,22 +18,9 @@ public class Main {
 
         //Kører på port B og C
         DrivingMethods drive = new DrivingMethods();
- //       drive.driveInCircle2(10);
-        // drive.driveTest();
-
-        //close all ports
-/*        try {
-            Beast.Beast.getSensorUS().close();
-            Beast.Beast.getMotorB().close();
-            Beast.Beast.getMotorC().close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-  */  }
         drive.driveContinuously();
         Delay.msDelay(20000);
-        // Sound.beepSequence(); // we are done.
         Beast.dispose();
+
     }
 }
