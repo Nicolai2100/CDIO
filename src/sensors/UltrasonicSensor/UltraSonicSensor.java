@@ -5,31 +5,27 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.RangeFinder;
 import lejos.robotics.SampleProvider;
 
-public class UltraSonicSensor implements RangeFinder
-{
+public class UltraSonicSensor implements RangeFinder {
     EV3UltrasonicSensor sensor;
     SampleProvider sampleProvider;
-    float [] sample;
+    float[] sample;
 
 
-    public UltraSonicSensor(Port port)
-    {
+    public UltraSonicSensor(Port port) {
         sensor = new EV3UltrasonicSensor(port);
         sampleProvider = sensor.getDistanceMode();
         sample = new float[sampleProvider.sampleSize()];
     }
 
     @Override
-    public float getRange()
-    {
+    public float getRange() {
         sampleProvider.fetchSample(sample, 0);
         return sample[0];
     }
 
 
     @Override
-    public float[] getRanges()
-    {
+    public float[] getRanges() {
         sampleProvider.fetchSample(sample, 0);
         return sample;
     }

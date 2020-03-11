@@ -1,3 +1,7 @@
+import lejos.robotics.Gyroscope;
+import sensors.GyroSensor.GyroSensor;
+import sensors.InfraredSensor.InfraredSensor;
+import sensors.TouchSensor.TouchSensor;
 import sensors.UltrasonicSensor.UltraSonicSensor;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
@@ -17,6 +21,9 @@ public class Beast extends RemoteEV3 {
     private static UnregulatedMotor motorB;
     private static UnregulatedMotor motorC;
     private static UltraSonicSensor ultraSonicSensor;
+    private static InfraredSensor infraredSensor;
+    private static TouchSensor touchSensor;
+    private static GyroSensor gyroSensor;
 
     private static BrickInfo[] bricks = BrickFinder.discover();
     private static String IPAddress = "";
@@ -38,6 +45,9 @@ public class Beast extends RemoteEV3 {
                 motorB = new UnregulatedMotor(MotorPort.B);
                 motorC = new UnregulatedMotor(MotorPort.C);
                 ultraSonicSensor = new UltraSonicSensor(SensorPort.S4);
+                infraredSensor = new InfraredSensor(SensorPort.S1);
+//                touchSensor = new TouchSensor(SensorPort.S1);
+//                gyroSensor = new GyroSensor(SensorPort.S2);
 
 
                 beast.setDefault();
@@ -60,6 +70,18 @@ public class Beast extends RemoteEV3 {
 
     public static UltraSonicSensor getSensorUS() {
         return ultraSonicSensor;
+    }
+
+    public static InfraredSensor getSensorIR() {
+        return infraredSensor;
+    }
+
+    public static TouchSensor getSensorTCH() {
+        return touchSensor;
+    }
+
+    public static GyroSensor getSensorGS() {
+        return gyroSensor;
     }
 
 }
