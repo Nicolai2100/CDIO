@@ -1,5 +1,7 @@
 import Rod.ExceptionNoIpFound;
 import Beast.Beast;
+import lejos.hardware.Sound;
+import lejos.utility.Delay;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -16,7 +18,8 @@ public class Main {
 
         //Kører på port B og C
         DrivingMethods drive = new DrivingMethods();
-        drive.driveInCircle(10);
+ //       drive.driveInCircle2(10);
+        // drive.driveTest();
 
         //close all ports
 /*        try {
@@ -28,4 +31,9 @@ public class Main {
             e.printStackTrace();
         }
   */  }
+        drive.driveContinuously();
+        Delay.msDelay(20000);
+        // Sound.beepSequence(); // we are done.
+        Beast.dispose();
+    }
 }
