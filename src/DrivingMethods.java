@@ -1,6 +1,7 @@
 import lejos.hardware.Sound;
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.utility.Delay;
+import Beast.Beast;
 
 public class DrivingMethods {
     UnregulatedMotor motorB;
@@ -145,10 +146,10 @@ public class DrivingMethods {
         motorC.close();
         Sound.beepSequence(); // we are done.
     }
-
+/*
     public void detectAndGrab() {
         if (Beast.getSensorUS().getRange() < Beast.critialRange) {
             Beast.grabAndLift();
         }
-    }
+    }*/
 }

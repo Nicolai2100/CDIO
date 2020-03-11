@@ -1,4 +1,5 @@
 import Rod.ExceptionNoIpFound;
+import Beast.Beast;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -8,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws RemoteException, NotBoundException, MalformedURLException, ExceptionNoIpFound {
         try {
-            Beast.getBeast();
+            Beast.getInstance();
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -19,9 +20,9 @@ public class Main {
 
         //close all ports
 /*        try {
-            Beast.getSensorUS().close();
-            Beast.getMotorB().close();
-            Beast.getMotorC().close();
+            Beast.Beast.getSensorUS().close();
+            Beast.Beast.getMotorB().close();
+            Beast.Beast.getMotorC().close();
 
         } catch (Exception e) {
             e.printStackTrace();

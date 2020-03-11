@@ -1,4 +1,5 @@
 import Rod.ExceptionNoIpFound;
+import Beast.Beast;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
