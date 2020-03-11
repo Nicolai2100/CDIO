@@ -24,6 +24,8 @@ public class Beast extends RemoteEV3 {
     private static UnregulatedMotor motorB;
     private static UnregulatedMotor motorC;
     private static UnregulatedMotor motorD;
+
+    // Creating Sensors
     private static UltraSonicSensor ultraSonicSensor;
     private static ColorSensor colorSensor;
     private static InfraredSensor infraredSensor;
